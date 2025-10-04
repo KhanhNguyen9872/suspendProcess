@@ -46,7 +46,7 @@ def main() -> None:
         print("main.py [second] [executable] [args]")
         return
 
-    sec = int(sys.argv[1])
+    sec = float(sys.argv[1])
     executable = sys.argv[2]
     args = sys.argv[3:]
     fullPath = getPathExecutable(executable)
