@@ -20,6 +20,9 @@ def getName(executable: str) -> str:
     return "/".join(executable.split("\\")).split("/")[-1]
 
 def getPathExecutable(executable: str) -> str:
+    if os.path.exists(executable):
+        return executable
+
     return subprocess.getoutput("where " + executable)
 
 def suspend(pid: int) -> None:
@@ -33,6 +36,7 @@ def resume(pid: int) -> None:
     return
 
 def run(executable: str, args: list) -> None:
+    executable = os.path.normpath(executable)
     p = subprocess.Popen([executable, *args], close_fds=False, creationflags=subprocess.CREATE_NEW_CONSOLE)
     print("> started: {} (PID: {})".format(getName(executable), p.pid))
     return p
